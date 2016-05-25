@@ -5,8 +5,12 @@ webix.protoUI({
 		this._contentobj = this.$view.firstChild;
 
 		this.map = null;
+		this.$map = webix.promise.defer();
 		
 		this.$ready.push(this.render);
+	},
+	getMap:function(){
+            return this.$map;
 	},
 	render:function(){
 
@@ -33,6 +37,7 @@ webix.protoUI({
 				mapTypeId: google.maps.MapTypeId[c.mapType]
 			});
 			webix._ldGMap = null;
+			this.$map.resolve(this.map);
         }
     },
 	center_setter:function(config){
